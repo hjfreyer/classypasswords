@@ -10,10 +10,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-* { font-family: Helvetica, sans-serif;}
+@media only screen
+and (max-device-width : 480px) {
+  #passwords :not(.header) {
+    font-size: 12px;
+  }
+}
 
 html {
   box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
 }
 
 *, *:before, *:after {
@@ -45,27 +51,40 @@ section {
   padding: 0 24px 12px 24px;
 }
 
-table td span:nth-child(1) {
+#passwords {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 6px;
+  margin: 24px 0;
+}
+
+#passwords .header {
+  font-weight: bold;
+  margin: 12px 0;
+  text-align: center;
+}
+
+#passwords span:nth-child(1) {
   color: red;
 }
-table td span:nth-child(2) {
+#passwords span:nth-child(2) {
   color: green;
 }
-table td span:nth-child(3) {
+#passwords span:nth-child(3) {
   color: blue;
 }
-table td span:nth-child(4) {
+#passwords span:nth-child(4) {
   color: orange;
 }
-table td span:nth-child(5) {
+#passwords span:nth-child(5) {
   color: purple;
 }
 
-table td:nth-child(1) span {
-  margin-left: 3px;
+#passwords div:nth-child(2n+3) span {
+  margin-right: 4px;
 }
 
-table td:nth-child(2) span {
+#passwords div:nth-child(2n+4) {
   font-family: monospace;
 }
 
@@ -93,15 +112,8 @@ table td:nth-child(2) span {
     <p>A classy generator for classy passwords.</p>
   </header>
     <section id="passwords-section">
-    <h2>Your lovingly generated passwords</h2>
-    <table>
-      <tr>
-        <th>You remember...</th>
-        <th>You type...</th>
-      </tr>
-      <tbody id="passwords">
-      </tbody>
-    </table>
+    <h2>Lovingly generated passwords</h2>
+    <div id="passwords"></div>
     <button onclick="resetPasswords()">More Passwords</button>
   </section>
   <section id="how-to-use">
@@ -2265,22 +2277,21 @@ table td:nth-child(2) span {
 
     function resetPasswords() {
       var numPasswords = 16;
-      var tbody = document.getElementById('passwords');
-      tbody.innerHTML = '';
+      var container = document.getElementById('passwords');
+      container.innerHTML = '<div class="header">You Remember...</div>' +
+        '<div class="header">You Type...</div>';
 
       for (var passwordIdx = 0; passwordIdx < numPasswords; passwordIdx++) {
-        tbody.appendChild(passwordRow());
+        appendPasswordRow(container);
       }
     }
     window.resetPasswords = resetPasswords;
 
-    function passwordRow() {
-      var row = document.createElement('tr');
+    function appendPasswordRow(container) {
       var words = bagOfWords(5);
-      var prefixes = words.map(function(word) { return word.substring(0, 4);});
 
-      var youRemember = document.createElement('td');
-      var youType = document.createElement('td');
+      var youRemember = document.createElement('div');
+      var youType = document.createElement('div');
       words.forEach(function (word) {
         var rememberSpan = document.createElement('span');
         rememberSpan.innerHTML = word;
@@ -2291,9 +2302,8 @@ table td:nth-child(2) span {
         youType.appendChild(typeSpan);
       });
 
-      row.appendChild(youRemember);
-      row.appendChild(youType);
-      return row;
+      container.appendChild(youRemember);
+      container.appendChild(youType);
     }
 
     resetPasswords();
