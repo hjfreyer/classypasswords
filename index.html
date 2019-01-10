@@ -7,9 +7,43 @@
   <title>Classy Password Generator</title>
   <meta name="description" content="Classy password generator">
   <meta name="author" content="hjfreyer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
+  <style>
 * { font-family: Helvetica, sans-serif;}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+}
+
+header {
+  display: block;
+  background: #DB7F8E;
+  color: white;
+  padding: 12px 24px;
+}
+
+header h1 {
+  display: inline-block;
+}
+
+section {
+  padding: 0 24px 12px 24px;
+}
 
 table td span:nth-child(1) {
   color: red;
@@ -35,6 +69,20 @@ table td:nth-child(2) span {
   font-family: monospace;
 }
 
+#how-to-use {
+  background: #6D435A;
+  color: white;
+}
+
+#how-it-works {
+  background: #B1EDE8;
+}
+
+#caveats {
+  background: #340068;
+  color: white;
+}
+
 </style>
 
 </head>
@@ -44,8 +92,7 @@ table td:nth-child(2) span {
     <h1>Classy Passwords</h1>
     <p>A classy generator for classy passwords.</p>
   </header>
-  <main>
-    <section>
+    <section id="passwords-section">
     <h2>Your lovingly generated passwords</h2>
     <table>
       <tr>
@@ -57,7 +104,7 @@ table td:nth-child(2) span {
     </table>
     <button onclick="resetPasswords()">More Passwords</button>
   </section>
-  <section>
+  <section id="how-to-use">
     <h2>How to use this</h2>
     <h3>For the impatient</h3>
     <p>
@@ -103,7 +150,7 @@ table td:nth-child(2) span {
         </li>
     </ol>
   </section>
-  <section>
+  <section id="how-it-works">
     <h2>How it works</h2>
     <p>
       This is essentially a <a href="https://xkcd.com/936/">Correct Horse Battery Staple</a>
@@ -123,7 +170,27 @@ table td:nth-child(2) span {
       Assuming you pick your favorite of the 16 given here, that lowers it to 46 bits.
     </p>
   </section>
-  </main>
+  <section id="caveats">
+    <h2>Caveats</h2>
+    <p>
+      Note that <b>a good password is not enough to keep you secure</b>.
+    </p>
+    <p>
+      The best password is no password at all; many pages allow you to login
+      with your account from Facebook, Google, or some other provider. This is
+      more convenient and secure than coming up with your own password.
+    </p>
+    <p>
+      The second best kind of password is a random password stored in a secure
+      password manager. Most major browsers come with one now, and you should
+      use it.
+    </p>
+    <p>
+      Finally, for the few accounts where you <i>do</i> want a password you
+      remember, <b>always use 2-Factor Authentication</b> as well. This is the
+      biggest thing you can do to keep yourself safe.
+    </p>
+  </section>
 
   <script>
   (function() {
@@ -2226,7 +2293,7 @@ table td:nth-child(2) span {
 
       row.appendChild(youRemember);
       row.appendChild(youType);
-return row;
+      return row;
     }
 
     resetPasswords();
