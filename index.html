@@ -186,14 +186,14 @@ footer a {
     <p>
       The words are selected from a wordlist included with the
       <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">Bitcoin
-      Improvement Proposal #39</a>. The wordlist consists of 1024 common English words,
+      Improvement Proposal #39</a>. The wordlist consists of 2048 common English words,
       such that the first four characters of each word is unique. This website simply selects
       five random words from this list, which allows you to safely skip all characters
       after the first 4 for more efficient password typing.
     </p>
     <p>
-      The page can generate 1114942319124480 unique 5-word passwords, for about 50 bits of entropy.
-      Assuming you pick your favorite of the 16 given here, that lowers it to 46 bits.
+      The page can generate 35853175596564480 unique 5-word passwords, for about 55 bits of entropy.
+      Assuming you pick your favorite of the 16 given here, that lowers it to 51 bits.
     </p>
   </section>
   <section id="caveats">
@@ -2281,17 +2281,17 @@ footer a {
     'zoo',
     ]
 
-    function cryptoRandomB1028() {
+    function cryptoRandomB2048() {
       var random_bytes = new Uint8Array(2);
       window.crypto.getRandomValues(random_bytes);
       var random_num = 256 * random_bytes[0] + random_bytes[1];
-      return random_num % 1024;
+      return random_num % 2048;
     }
 
     function bagOfWords(size) {
       var words = [];
       while (words.length < size) {
-        var word = WORDLIST[cryptoRandomB1028()];
+        var word = WORDLIST[cryptoRandomB2048()];
         if (words.indexOf(word) == -1) {
           words.push(word);
         }
