@@ -2285,7 +2285,10 @@ footer a {
       var random_bytes = new Uint8Array(2);
       window.crypto.getRandomValues(random_bytes);
       var random_num = 256 * random_bytes[0] + random_bytes[1];
-      return random_num % 2048;
+
+      // Constant time version of random_num % 2048. Note this only works for
+      // powers of two!
+      return random_num & 2047;
     }
 
     function bagOfWords(size) {
